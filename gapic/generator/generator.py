@@ -61,11 +61,13 @@ class Generator:
         self._sample_configs = opts.sample_configs
 
         # Extract gapic generator version number from setup.py.
-        setup_file_path = os.path.join(
-            os.path.dirname(__file__), "../../setup.py")
-        with open(setup_file_path, "r") as setup_file:
-            self._gapic_generator_version = re.search(
-                "version = \"([\d\.]+)\"", setup_file.read())[1]
+        # setup_file_path = os.path.join(
+        #     os.path.dirname(__file__), "../../setup.py")
+        # with open(setup_file_path, "r") as setup_file:
+        #     self._gapic_generator_version = re.search(
+        #         "version = \"([\d\.]+)\"", setup_file.read())[1]
+        import pkg_resources
+        self._gapic_generator_version = pkg_resources.require("gapic-generator")[0].version
 
     def get_response(
         self, api_schema: api.API, opts: options.Options
